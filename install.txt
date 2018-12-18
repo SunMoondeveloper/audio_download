@@ -1,0 +1,75 @@
+Install.txt for this application
+
+	Ensure the machine have Ruby 2.4.1p111  Otherwise install Ruby 2.4.1p111
+		Debian GNU/Linux and Ubuntu use the apt package manager. You can use it like this:
+		execute:
+			$ apt-get install ruby-full
+				or
+			$ apt-get install ruby=2.4.1p111
+	
+	NOTE: if not a root user use sudo for install all commands.
+
+	Ensure the machine have Rails 5.2.0. Otherwise install Rails 5.2.0
+		execute
+			gem install rails -v 5.2.0
+				or
+			$ apt-get install rails
+
+		This package used to handled database, if have already please skip it.
+			$ apt-get install libsqlite3-dev
+		
+		This package used to handled runtime java script, if have already please skip it.
+			$ apt-get install nodejs
+	
+	NOTE::	Ensure all the ruby dependency installed
+
+	Checkout the source code from git repository
+	
+		After checkout, following below steps.
+			
+			cd Simple-Repository/src/FilePopulator/call_records_visualizer
+
+			bundle install 
+
+		If face any gem related issues, execute below commands.
+
+			cd ./vendor/bundle/cache
+	     
+			gem install --local *.gem
+
+	Now check the server will start or not.
+		execute	
+			rails s -b 0.0.0.0 -p 5454 -e production
+	
+	NOTE:: Please placed the CSV meta data file in "Simple-Repository/src/FilePopulator/call_records_visualizer/CSV/"
+		And update the meta data file name in "Simple-Repository/src/FilePopulator/call_records_visualizer/config/jqgrid.rb"
+
+
+Startup script (after checkout)
+	The startup script locate in "Simple-Repository/src/FilePopulator/call_records_visualizer/initscript/"
+
+	modify /etc/sudoers file
+	    + comment this line in the file, otherwise we can used the specific user environment variables.
+		
+			Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+	    + add below line the same file, it used to shared environment variable details.
+
+			Defaults env_keep +="rvm_bin_path GEM_HOME IRBRC MY_RUBY_HOME rvm_path rvm_prefix rvm_version GEM_PATH rvmsudo_secure_path RUBY_VERSION rvm_ruby_string rvm_delete_flag" 
+
+	update the user details
+		set the RUSER, which user you want to run the application.
+		vi initscript/call_records_visualizer.sh
+		-- update the RUSER value.
+
+	copy the call_records_visualizer file to /etc/init.d/
+		cp initscript/call_records_visualizer.sh /etc/init.d/
+		
+		  
+	update the service
+		$ update-rc.d call_records_visualizer.sh defaults
+	start the service
+		$ /usr/sbin/service call_records_visualizer.sh start
+
+
+

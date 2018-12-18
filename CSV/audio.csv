@@ -1,0 +1,17 @@
+id,songs,file path
+1,audio_1,/home/recordvisualizer/Audio/three.mp3
+2,audio_2,/home/recordvisualizer/Audio/small.mp3 
+3,audio_3,/home/recordvisualizer/Audio/medium.mp3
+4,audio_4,/home/recordvisualizer/Audio/large.mp3 
+5,audio_5,/home/recordvisualizer/Audio/small1.mp3
+6,audio_6,/home/recordvisualizer/Audio/medium1.mp3
+7,audio_7,/home/recordvisualizer/Audio/large1.mp3
+8,audio_8,/home/recordvisualizer/Audio/small2.mp3
+9,audio_9,/home/recordvisualizer/Audio/medium2.mp3
+10,audio_10,/home/recordvisualizer/Audio/large2.mp3
+11,audio_11,/home/recordvisualizer/Audio/small3.mp3
+12,audio_12,/home/recordvisualizer/Audio/medium3.mp3
+13,audio_13,/home/recordvisualizer/Audio/large3.mp3
+14,audio_14,/home/recordvisualizer/Audio/small4.mp3
+15,audio_15,/home/recordvisualizer/Audio/medium4.mp3
+16,audio_16,/home/recordvisualizer/Audio/large4.mp3

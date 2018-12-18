@@ -1,0 +1,15 @@
+current directory: /home/recordvisualizer/Simple-Repository/src/FilePopulator/call_records_visualizer/vendor/bundle/ruby/2.3.0/gems/bindex-0.5.0/ext/bindex
+/usr/bin/ruby2.3 -r ./siteconf20181031-16339-ls9m1m.rb extconf.rb
+creating Makefile
+
+current directory: /home/recordvisualizer/Simple-Repository/src/FilePopulator/call_records_visualizer/vendor/bundle/ruby/2.3.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" clean
+
+current directory: /home/recordvisualizer/Simple-Repository/src/FilePopulator/call_records_visualizer/vendor/bundle/ruby/2.3.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR="
+compiling cruby.c
+linking shared-object bindex/cruby.so
+
+current directory: /home/recordvisualizer/Simple-Repository/src/FilePopulator/call_records_visualizer/vendor/bundle/ruby/2.3.0/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20181031-16339-11wab1r/bindex

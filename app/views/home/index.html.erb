@@ -1,0 +1,123 @@
+<body bgcolor="">
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</body>
+
+    <script type="text/javascript"> 
+
+        $(document).ready(function () {
+
+	// jqgrid configurations
+            $("#jqGrid").jqGrid({
+                url:'/data',
+                datatype: "json",
+	// colmodel from config file.
+                colModel: <%=$colmodel.html_safe%>,
+                autowidth: true,
+                height: $(window).height() * 0.75,
+                rowNum: 50,
+		rowList : [25,50,75,100],
+                rownumbers: true,
+                rownumWidth: 40, 
+                multiselect: true,
+		ignoreCase: true,
+		recordpos: 'right',
+		viewrecords: true,
+		loadonce: true,	
+		sortable: true,
+		forceClientSorting: true,
+		sortname:'conversation duration',
+		sorttype: 'integer',
+		sortorder:'desc',
+		hidegrid: false,	
+                pager: "#jqGridPager",
+		onPaging: pagetest,
+		caption: "Play list"
+
+            });
+
+
+		//this is pannel search icon configuration and advanced search tool
+		$("#jqGrid").jqGrid('navGrid','#jqGridPager',{add:false,edit:false,del:false,search:true,refresh:false },{},{},{},{multipleSearch:true,sopt: ['eq', 'ne','lt','gt','le','ge', 'cn', 'nc', 'bw', 'ew'],onSearch: srchstart,recreateFilter:true,closeAfterReset:true,overlay:0,beforeShowSearch: function() {
+	        $('#searchmodfbox_jqGrid').width(700);
+		//close search filter, because it might misbehave when applied both search box conditions.
+		$(".ui-search-input").on("click",function(){ $("#searchmodfbox_jqGrid").hide() })
+
+                    return true;
+              }})
+	// Custom Refresh button in jqgrid
+	.jqGrid('navButtonAdd','#jqGridPager',{caption:"Refresh", buttonicon:"ui-icon-refresh", onClickButton:reloadPage , position: "last", title:"Load from server"})
+	// Custom Download button in jqgrid
+	.jqGrid('navButtonAdd','#jqGridPager',{caption:"download",id:'dbtn', buttonicon:"ui-icon-arrowthickstop-1-s", onClickButton:getSelectedRows, position: "last", title:"download the file"});
+		// This is search tool bar configuration
+		$("#jqGrid").jqGrid('filterToolbar',{ searchOnEnter: false,defaultSearch: "cn"}); 
+        });
+	
+
+//The below function used to download the file(s) from server
+// First used select the  records and click download button. then this function will call
+// check the user selected the records or not, if not selected we provide the alert message.
+// If selected send the request to server and download the audio file/zip file.
+
+        function getSelectedRows() {
+            var grid = $("#jqGrid");
+            var rowKey = grid.getGridParam("selrow");
+		
+            if (!rowKey)
+                alert("No rows are selected");
+            else {
+                var selectedIDs = grid.getGridParam("selarrrow");
+                var result = "";
+		// collect the details about selected rows.
+                for (var i = 0; i < selectedIDs.length; i++) {
+                    result += selectedIDs[i] + ",";
+		    $("#dbtn").hide();
+                }
+		// send a ajax get request to server when user click the download button and select the records..
+		jQuery.ajax({
+        	url: '/ajaxdownload',
+        	type: 'get',
+		//AUTH_TOKEN for server side request validation.
+		data: { files:result, authenticity_token: AUTH_TOKEN },
+        	success: function(resul) {
+			var err = resul.split(':');
+			// Check the responce have a #54 in begining, because that is error message so i show to the user.
+			if(err[0] == "#54")
+				alert("The following file(s) are missing\n" + err[1])
+				console.log("done");
+				$("#dbtn").show();
+        		}
+    		});
+
+            }                
+        }
+//	reload the page
+	function reloadPage() { 
+		location.reload(true);
+	}
+	var myToast;
+
+// clear search toolbar value, because advanced search tool overwrite those search conditions and display results.
+// so user might confused while see search tool bar values.
+	function srchstart() {
+		$(".ui-search-toolbar input[type=text]").val("")
+	}
+
+// Validate the page number
+// reset the page number when the page number is more than existing page number.
+// 
+
+
+	function pagetest() {
+	var curpge = $(".ui-pg-input").val();
+	var laspge = $("#jqGrid").getGridParam('lastpage');
+	var fstpge = $("#jqGrid").getGridParam('firstpage');
+		if (curpge > laspge){
+			 $(".ui-pg-input").val(laspge);
+		} else if ( curpge < fstpge){
+			 $(".ui-pg-input").val(fstpage);
+		}
+	}
+
+    </script>
+

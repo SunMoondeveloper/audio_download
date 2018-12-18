@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Records Visualizer</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+<!-- We face some issues while run server in production  -->
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag    "application", :media => "all" %>
+    <%#= javascript_include_tag "application" %>
+
+<!-- use link and script tag for avoid precompile issues in production -->
+    <%= javascript_tag "const AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+   	<link rel="stylesheet" type="text/css" href="/assets/jquery-ui.min.css">
+   	<link rel="stylesheet" type="text/css" href="/assets/application.css">
+	<script type="text/javascript" src="/assets/jquery-ui.min.js"></script>	
+	<script type="text/javascript" src="/assets/application.js"></script>	
+  </head>
+<style>
+footer {
+   position: fixed;
+   left: 0;
+   width: 100%;
+   color: white;
+   text-align: center;
+}
+</style>
+ <body bgcolor="#4fc2f0">
+    <%= yield %>
+<footer>
+ © SunMoon developer
+</footer>
+  </body>
+</html>

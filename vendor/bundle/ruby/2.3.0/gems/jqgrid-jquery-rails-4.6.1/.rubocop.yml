@@ -1,0 +1,23 @@
+# This is the configuration used to check the rubocop source code.
+
+AllCops:
+  Include:
+    - !ruby/regexp /\.gemspec$/
+    - Gemfile
+    - '**/Rakefile'
+  Exclude: []
+
+Documentation:
+  Enabled: false
+
+EmptyLines:
+  Enabled: false
+
+FileName:
+  Enabled: false
+
+HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Lint/UnusedBlockArgument:
+  Enabled: false
